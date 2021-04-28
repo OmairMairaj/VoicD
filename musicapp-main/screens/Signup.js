@@ -27,7 +27,7 @@ export default class Signup extends React.Component {
     };
   }
   async signupAPI() {
-    var url = "http://192.168.1.102:2000/api/signup";
+    var url = "http://192.168.100.5:2000/api/signup";
     let data = {};
     data.firstName = this.state.firstName;
     data.lastName = this.state.lastName;
