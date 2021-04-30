@@ -16,10 +16,10 @@ const TabNavigator = createMaterialBottomTabNavigator(
         Home: {
             screen: Home,
             navigationOptions: {
-                tabBarLabel: 'Home',
+                tabBarLabel: 'Home' ,
                 tabBarIcon: () => (
                     <View>
-                        <Icon style={[{ color: '#60114b' }]} size={25} name={'ios-home-outline'} />
+                        <Icon style={[{ color: 'white' }]} size={25} name={'ios-home-outline'} />
                     </View>
                 ),
             },
@@ -30,7 +30,7 @@ const TabNavigator = createMaterialBottomTabNavigator(
                 tabBarLabel: 'Search',
                 tabBarIcon: () => (
                     <View>
-                        <Icon style={[{ color: '#60114b' }]} size={25} name={'ios-search-outline'} />
+                        <Icon style={[{ color: 'white' }]} size={25} name={'ios-search-outline'} />
                     </View>
                 ),
             },
@@ -41,7 +41,7 @@ const TabNavigator = createMaterialBottomTabNavigator(
                 tabBarLabel: 'Playlist',
                 tabBarIcon: () => (
                     <View>
-                        <Icon style={[{ color: '#60114b' }]} size={25} name={'ios-musical-notes-outline'} />
+                        <Icon style={[{ color: 'white' }]} size={25} name={'ios-musical-notes-outline'} />
                     </View>
                 ),
             },
@@ -54,7 +54,7 @@ const TabNavigator = createMaterialBottomTabNavigator(
                 tabBarIcon: () => (
                     <View>
                         <Icon
-                            style={[{ color: '#60114b' }]} size={25} name={'ios-person-circle-outline'} />
+                            style={[{ color: 'white' }]} size={25} name={'ios-person-circle-outline'} />
                     </View>
                 ),
 
@@ -67,7 +67,7 @@ const TabNavigator = createMaterialBottomTabNavigator(
 
     {
         initialRouteName: 'Home',
-        activeColor: '#b01f8a',
+        activeColor: 'white',
         inactiveColor: '#60114b',
         barStyle: { backgroundColor: '#1b0b3a' },
     }
