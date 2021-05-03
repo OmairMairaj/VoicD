@@ -20,7 +20,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 
 const { width: WIDTH } = Dimensions.get('window')
 
-export default class Example extends Component {
+export default class Signin extends Component {
   constructor() {
     super()
     this.state = {

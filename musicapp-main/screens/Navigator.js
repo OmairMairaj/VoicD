@@ -71,7 +71,8 @@ const TabNavigator = createMaterialBottomTabNavigator(
         inactiveColor: '#60114b',
         barStyle: { backgroundColor: '#1b0b3a' },
     }
-);
+); 
+
 
 export default createAppContainer(TabNavigator);
 

@@ -28,8 +28,11 @@ import Home from '../screens/home';
 const Search = ({navigation}) => {
     return (
         <View style={{ flex:1, alignItems:'center', justifyContent: 'center'}}>
-            <Text>Home</Text>
-            <Button title="Go to Home Page" onPress={() => navigation.navigate("Home")}/>
+            <Text>Search</Text>
+            <Button title="Go to Playlist Page" onPress={() => navigation.navigate("Playlist")}/>
+            <Button title="Go to Profile Page" onPress={() => navigation.navigate("Profile")}/>
+            <Button title="Go Back" onPress={() => navigation.goBack()}/>
+            <Button title="Go to First Page" onPress={() => navigation.popToTop()}/>
         </View>
     )
 }

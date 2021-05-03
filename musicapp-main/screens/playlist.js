@@ -28,8 +28,11 @@ import Profile from '../screens/profile';
 const Playlist = ({navigation}) => {
     return (
         <View style={{ flex:1, alignItems:'center', justifyContent: 'center'}}>
-            <Text>Home</Text>
-            <Button title="Go to huda" onPress={() => navigation.navigate("Profile")}/>
+            <Text>Playlist</Text>
+            <Button title="Go to Search Page" onPress={() => navigation.navigate("Search")}/>
+            <Button title="Go to Profile Page" onPress={() => navigation.navigate("Profile")}/>
+            <Button title="Go Back" onPress={() => navigation.goBack()}/>
+            <Button title="Go to First Page" onPress={() => navigation.popToTop()}/>
         </View>
     );
 };
