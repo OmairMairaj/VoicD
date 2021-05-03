@@ -22,10 +22,10 @@ import bgImage from '../assets/homebackground.png'
 import logo from '../assets/vd-logowhite.png'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-import TabNavigator from './Navigator';
+import TabNavigator from './TabNavigator';
 import Profile from '../screens/profile';
 
-const Home = ({navigation}) => {
+function Home({navigation}){
     return (
         <View style={{ flex:1, alignItems:'center', justifyContent: 'center'}}>
             <Text>Home</Text>

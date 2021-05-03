@@ -1,24 +1,18 @@
 import React, { Component } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
 import Icon from "react-native-vector-icons/Ionicons";
 
-import Home from "./home";
-import Profile from "./profile";
-import Search from "./search";
-import Playlist from "./playlist";
-import Navigator from './Navigator';
-
-import { createAppContainer } from "react-navigation";
+import Home from '../screens/home';
+import Profile from "../screens/profile";
+import Search from "../screens/search";
+import Playlist from "../screens/playlist";
 
 const HomeStack = createStackNavigator();
 const SearchStack = createStackNavigator();
 const PlaylistStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 
-function HomeStackScreen({navigation}) {
+export function HomeStackScreen({navigation}) {
   return (
     <HomeStack.Navigator
       screenOptions={{
@@ -54,7 +48,7 @@ function HomeStackScreen({navigation}) {
   );
 }
 
-function SearchStackScreen({navigation}) {
+export function SearchStackScreen({navigation}) {
   return (
     <SearchStack.Navigator
       screenOptions={{
@@ -89,7 +83,7 @@ function SearchStackScreen({navigation}) {
   );
 }
 
-function PlaylistStackScreen({navigation}) {
+export function PlaylistStackScreen({navigation}) {
   return (
     <PlaylistStack.Navigator
       screenOptions={{
@@ -124,7 +118,7 @@ function PlaylistStackScreen({navigation}) {
   );
 }
 
-function ProfileStackScreen({navigation}) {
+export function ProfileStackScreen({navigation}) {
   return (
     <ProfileStack.Navigator
       screenOptions={{
@@ -159,74 +153,4 @@ function ProfileStackScreen({navigation}) {
   );
 }
 
-const Tab = createBottomTabNavigator();
-
-function MainTabScreen({navigation}) {
-  return (
-    <Tab.Navigator
-      initialRouteName="Home"
-      activeColor="#e91e63"
-      barStyle={{ backgroundColor: "tomato" }}
-    >
-      <Tab.Screen
-        name="Home"
-        component={HomeStackScreen}
-        options={{
-          tabBarLabel: "Home",
-          tabBarIcon: () => (
-            <Icon
-              style={[{ color: "white" }]}
-              size={25}
-              name={"ios-home-outline"}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Search"
-        component={SearchStackScreen}
-        options={{
-          tabBarLabel: "Search",
-          tabBarIcon: () => (
-            <Icon
-              style={[{ color: "white" }]}
-              size={25}
-              name={"ios-search-outline"}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Playlist"
-        component={PlaylistStackScreen}
-        options={{
-          tabBarLabel: "Playlist",
-          tabBarIcon: () => (
-            <Icon
-              style={[{ color: "white" }]}
-              size={25}
-              name={"ios-musical-notes-outline"}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileStackScreen}
-        options={{
-          tabBarLabel: "Profile",
-          tabBarIcon: () => (
-            <Icon
-              style={[{ color: "white" }]}
-              size={25}
-              name={"ios-person-circle-outline"}
-            />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-    // <Navigator/>
-  );
-}
-
-export default MainTabScreen;
+export default {HomeStackScreen , SearchStackScreen, PlaylistStackScreen, ProfileStackScreen };
