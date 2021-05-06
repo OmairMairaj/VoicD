@@ -3,18 +3,26 @@ import { createMaterialBottomTabNavigator } from "react-navigation-material-bott
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/Ionicons";
 
-import {HomeStackScreen} from './MainStack';
-import {SearchStackScreen} from './MainStack';
-import {PlaylistStackScreen} from './MainStack';
-import {ProfileStackScreen} from './MainStack';
+import { HomeStackScreen } from "./MainStack";
+import { SearchStackScreen } from "./MainStack";
+import { PlaylistStackScreen } from "./MainStack";
+import { ProfileStackScreen } from "./MainStack";
 
 const Tab = createBottomTabNavigator();
 
 function MainTab() {
   return (
     <Tab.Navigator
-      activeColor="#e91e63"
-      barStyle={{ backgroundColor: "tomato" }}
+      tabBarOptions={{
+        activeTintColor: "#fff",
+        inactiveTintColor: "lightgray",
+        activeBackgroundColor: "#2e1166",
+        inactiveBackgroundColor: "#1b0b3a",
+        style: {
+          backgroundColor: "#1b0b3a",
+          paddingBottom: 3,
+        },
+      }}
     >
       <Tab.Screen
         name="Home"
@@ -22,11 +30,7 @@ function MainTab() {
         options={{
           tabBarLabel: "Home",
           tabBarIcon: () => (
-            <Icon
-              style={[{ color: "white" }]}
-              size={25}
-              name={"ios-home-outline"}
-            />
+            <Icon name="home-outline" style={[{ color: "white" }]} size={25} />
           ),
         }}
       />
@@ -39,7 +43,7 @@ function MainTab() {
             <Icon
               style={[{ color: "white" }]}
               size={25}
-              name={"ios-search-outline"}
+              name={"search-outline"}
             />
           ),
         }}
@@ -53,7 +57,7 @@ function MainTab() {
             <Icon
               style={[{ color: "white" }]}
               size={25}
-              name={"ios-musical-notes-outline"}
+              name={"musical-notes-outline"}
             />
           ),
         }}
@@ -67,7 +71,7 @@ function MainTab() {
             <Icon
               style={[{ color: "white" }]}
               size={25}
-              name={"ios-person-circle-outline"}
+              name={"person-circle-outline"}
             />
           ),
         }}

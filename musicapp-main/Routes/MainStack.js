@@ -18,7 +18,6 @@ export function HomeStackScreen({navigation}) {
       screenOptions={{
         headerStyle: {
           backgroundColor: "#1b0b3a",
-          textAlign: "center",
         },
         headerTintColor: "#fff",
         headerTitleStyle: {
@@ -54,7 +53,6 @@ export function SearchStackScreen({navigation}) {
       screenOptions={{
         headerStyle: {
           backgroundColor: "#1b0b3a",
-          textAlign: "center",
         },
         headerTintColor: "#fff",
         headerTitleStyle: {
@@ -89,7 +87,6 @@ export function PlaylistStackScreen({navigation}) {
       screenOptions={{
         headerStyle: {
           backgroundColor: "#1b0b3a",
-          textAlign: "center",
         },
         headerTintColor: "#fff",
         headerTitleStyle: {
@@ -124,7 +121,6 @@ export function ProfileStackScreen({navigation}) {
       screenOptions={{
         headerStyle: {
           backgroundColor: "#1b0b3a",
-          textAlign: "center",
         },
         headerTintColor: "#fff",
         headerTitleStyle: {

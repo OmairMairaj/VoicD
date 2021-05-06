@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import bgImage from "../assets/background.jpg";
-import logo from "../assets/vd-logowhite.png";
+import logo from "../assets/vd-logo.png";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -65,8 +65,7 @@ export default class Signup extends React.Component {
       // <ScrollView>
       <ImageBackground source={bgImage} style={styles.backgroundContainer}>
         <View style={styles.logoContainer}>
-          <Image source={logo} style={styles.logo} />
-          {/* <Text style={styles.LogoText}> LOGIN </Text> */}
+          <Image source={logo} style={styles.logo} resizeMode="stretch"/>
         </View>
 
         <View style={styles.inputContainer}>
@@ -162,6 +161,10 @@ export default class Signup extends React.Component {
     );
   }
 }
+
+const {height} = Dimensions.get("screen");
+const height_logo = height * 0.28;
+
 const styles = StyleSheet.create({
   backgroundContainer: {
     flex: 1,
@@ -173,12 +176,14 @@ const styles = StyleSheet.create({
 
   logoContainer: {
     alignItems: "center",
-    marginBottom: 50,
+    marginBottom: 10,
   },
 
   logo: {
-    width: 120,
-    height: 120,
+    width: height_logo,
+    height: height_logo*.55,
+    // width: 120,
+    // height: 120,
     //paddingBottom:100
     //translateY:-40
   },
