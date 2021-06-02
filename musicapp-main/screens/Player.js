@@ -19,13 +19,10 @@ export default function Player(){
         <TouchableOpacity style = {styles.icon}>
         <Icon name="arrow-back-ios" size={28} color="#ffffff" />
         </TouchableOpacity>
-        
-          
-          
           <Image source = {simage} style = {styles.image}/>
           <View style = {styles.view}>
           <TouchableOpacity>
-              <Icon size = {25} style = {styles.heart} color = "#ffffff" name = "add"/>
+              <Icon size = {30} style = {styles.heart} color = "#ffffff" name = "add"/>
           </TouchableOpacity>
             <Text style = {styles.title} >Drivers License</Text>
             <TouchableOpacity>
@@ -33,6 +30,23 @@ export default function Player(){
             </TouchableOpacity>
           </View>
           <Text style = {styles.artist} >Olivia Rodrigo</Text>
+          <View style = {styles.player}>
+            <TouchableOpacity >
+              <Icon2 name = "ios-shuffle" color = "#ffffff" size = {35} />
+              </TouchableOpacity>
+              <TouchableOpacity >
+              <Icon2 name = "play-skip-back-outline" color = "#ffffff" size = {35} />
+              </TouchableOpacity>
+              <TouchableOpacity >
+              <Icon2 name = "pause-outline" color = "#ffffff" size = {50} />
+              </TouchableOpacity>
+              <TouchableOpacity >
+              <Icon2 name = "play-skip-forward-outline" color = "#ffffff" size = {35} />
+              </TouchableOpacity>
+              <TouchableOpacity >
+              <Icon2 name = "repeat" color = "#ffffff" size = {35} />
+            </TouchableOpacity>
+          </View>
           
        
         
@@ -51,8 +65,8 @@ const styles = StyleSheet.create({
       flex: 1,
       width: null,
       height: null,
-      //justifyContent: 'center',
-      //alignItems: 'center'
+      // justifyContent: 'center',
+      // alignItems: 'center'
   },
  
   image : {
@@ -79,20 +93,29 @@ const styles = StyleSheet.create({
   artist : {
     alignSelf : 'center',
     color : "#ffffff",
-    fontWeight : "150",
-    fontSize : 12
+    fontWeight : "100",
+    fontSize : 14
   },
   
   view : {
     marginTop : 12,
     flexDirection : 'row',
-    justifyContent : 'space-around'
+    justifyContent : 'space-around',
+   
+    
   },
 
   heart : {
-    
-    marginTop : 10
-    
+    marginTop : 5  
+  },
+
+  player : {
+    marginTop : 20,
+    alignSelf : 'center',
+    width : 300,
+    flexDirection : 'row',
+    justifyContent : 'space-around',
+    alignItems : 'center'
     
   }
 });

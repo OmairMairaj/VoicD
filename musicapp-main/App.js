@@ -164,13 +164,13 @@ export default function App() {
     );
   }
   return (
-      // <Player/>
-    <PaperProvider theme={theme}>
-    <AuthContext.Provider value={authContext}>
-      <NavigationContainer theme={theme}>
-        {loginState.userToken != null ? <DrawerNavigator /> : <AuthStack />}
-      </NavigationContainer>
-    </AuthContext.Provider>
-    </PaperProvider>
+       <Player/>
+    // <PaperProvider theme={theme}>
+    // <AuthContext.Provider value={authContext}>
+    //   <NavigationContainer theme={theme}>
+    //     {loginState.userToken != null ? <DrawerNavigator /> : <AuthStack />}
+    //   </NavigationContainer>
+    // </AuthContext.Provider>
+    // </PaperProvider>
   );
 }
