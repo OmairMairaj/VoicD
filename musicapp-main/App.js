@@ -2,6 +2,7 @@ import "react-native-gesture-handler";
 // import { StatusBar } from 'expo-status-bar';
 import React, { Component, useEffect } from "react";
 import { NavigationContainer, DarkTheme, DefaultTheme } from "@react-navigation/native";
+import Player from './screens/Player';
 // import { createDrawerNavigator } from '@react-navigation/drawer';
 // import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import {
@@ -163,7 +164,7 @@ export default function App() {
     );
   }
   return (
-    //  <Navigator/>
+      // <Player/>
     <PaperProvider theme={theme}>
     <AuthContext.Provider value={authContext}>
       <NavigationContainer theme={theme}>
