@@ -32,6 +32,7 @@ import AuthStack from "./Routes/AuthStack";
 import { ActivityIndicator } from "react-native";
 import { AuthContext } from "./components/context";
 import { Provider as PaperProvider, DarkTheme as PaperDarkTheme, DefaultTheme as PaperDefaultTheme} from 'react-native-paper';
+import Songlist from "./screens/songlist";
 
 // const Drawer = createDrawerNavigator();
 
@@ -167,7 +168,8 @@ export default function App() {
   }
   return (
    
-        <Player/>
+        //<Player/>
+        <Songlist/>
         
     // <PaperProvider theme={theme}>
     // <AuthContext.Provider value={authContext}>
