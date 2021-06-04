@@ -26,7 +26,6 @@ import {
 // import PlaylistStackScreen from './Routes/MainTabScreen';
 // import ProfileStackScreen from './Routes/MainTabScreen';
 import AsyncStorage from '@react-native-community/async-storage';
-
 // import TabNavigator from './screens/TabNavigator';
 import DrawerNavigator from "./Routes/DrawerNavigator";
 import AuthStack from "./Routes/AuthStack";
@@ -36,7 +35,10 @@ import { Provider as PaperProvider, DarkTheme as PaperDarkTheme, DefaultTheme as
 
 // const Drawer = createDrawerNavigator();
 
+
 export default function App() {
+ 
+ 
   // const [isLoading, setIsLoading] = React.useState(true);
   // const [userToken, setUserToken] = React.useState(null);
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
@@ -164,7 +166,9 @@ export default function App() {
     );
   }
   return (
-      //  <Player/>
+   
+       // <Player/>
+        
     <PaperProvider theme={theme}>
     <AuthContext.Provider value={authContext}>
       <NavigationContainer theme={theme}>
