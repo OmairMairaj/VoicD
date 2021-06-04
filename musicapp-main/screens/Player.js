@@ -18,6 +18,7 @@ import { Audio } from 'expo-av';
 import { render } from 'react-dom';
 import { getNativeSourceAndFullInitialStatusForLoadAsync } from 'expo-av/build/AV';
 import track from '../assets/tracks/dl.mp3'
+import { color } from 'react-native-reanimated';
 
 const tracks = [
   {
@@ -34,6 +35,11 @@ export default class Player extends Component {
     this.state = {
       playbackObj : null,
       soundObj : null,
+      iconNameplay : 'pause-outline',
+      iconNamefav : 'ios-heart-outline',
+      playbackPosition : null,
+      playbackDuration : null,
+      currentAudio : null
       
     };
     
@@ -42,6 +48,7 @@ export default class Player extends Component {
   
 
 render(){
+  
   return (
     <ImageBackground source={homebg} style={styles.backgroundContainer}>
       <SafeAreaView>
@@ -55,7 +62,9 @@ render(){
           </TouchableOpacity>
           <Text style={styles.title} >Drivers License</Text>
           <TouchableOpacity>
-            <Icon2 size={25} style={styles.heart} color="#ffffff" name="ios-heart-outline" />
+            <Icon2 size={25} style={styles.heart} color="#ffffff" name={this.state.iconNamefav} onPress = {() => {
+              this.state.iconNamefav === 'ios-heart-outline' ? this.setState({iconNamefav : 'heart'}) :  this.setState({iconNamefav : 'ios-heart-outline'})
+            }} />
           </TouchableOpacity>
         </View>
         <Text style={styles.artist} >Olivia Rodrigo</Text>
@@ -64,9 +73,16 @@ render(){
           style={{width: 330, height: 40, marginLeft: 22, marginTop : 25}}
           minimumValue={0}
           maximumValue={1}
+          value = {this.calculateSeekBar()}
           minimumTrackTintColor="#FFFFFF"
           maximumTrackTintColor="#000000"
+          thumbTintColor = "#FFFFFF"
         />
+        <View style = {{width : 330, flexDirection : 'row',justifyContent : 'space-between', alignSelf : 'center'}}>
+         
+          <Text style = {{color: '#ffffff'}}>{this.miltotime(this.state.playbackPosition)}</Text>
+          <Text style = {{color: '#ffffff'}}>{this.miltotime(this.state.playbackDuration)}</Text>
+        </View>
         <View style={styles.player}>
        
           <TouchableOpacity >
@@ -76,7 +92,7 @@ render(){
             <Icon2 name="play-skip-back-outline" color="#ffffff" size={30} />
           </TouchableOpacity>
           <TouchableOpacity >
-            <Icon2 name="pause-outline" color="#ffffff" size={50} onPress = {() => this.handleAudioPress(track)} />
+            <Icon2 name={this.state.iconNameplay} color="#ffffff" size={50} onPress = {() => this.handleAudioPress(track)} />
           </TouchableOpacity>
           <TouchableOpacity >
             <Icon2 name="play-skip-forward-outline" color="#ffffff" size={30} />
@@ -90,33 +106,67 @@ render(){
   )
 
   }
+miltotime = (s) => {
+  function pad(n, z) {
+    z = z || 2;
+    return ('00' + n).slice(-z);
+  }
 
-  
+  var ms = s % 1000;
+  s = (s - ms) / 1000;
+  var secs = s % 60;
+  s = (s - secs) / 60;
+  var mins = s % 60;
+  var hrs = (s - mins) / 60;
+
+  return  pad(mins) + ':' + pad(secs) ;
+}
+
+  calculateSeekBar = () => {
+    
+    if (this.state.playbackPosition !== null && this.state.playbackDuration !== null){
+     // console.log(this.state.playbackPosition / this.state.playbackDuration);
+        return (this.state.playbackPosition / this.state.playbackDuration)
+    }
+    return 0;
+  }
+
+  OnPlaybackStatusUpdate = (playbackStatus) =>{
+   // console.log(playbackStatus);
+    if (playbackStatus.isLoaded && playbackStatus.isPlaying)
+    {
+      this.setState({...this.state,
+        playbackPosition : playbackStatus.positionMillis,
+        playbackDuration : playbackStatus.durationMillis
+      })
+    }
+  }
 
   handleAudioPress = async (track) => {
-    //console.log("hello");
+  
+    this.state.iconNameplay === 'pause-outline' ? this.setState({iconNameplay : 'play-sharp'}) :  this.setState({iconNameplay : 'pause-outline'})
   // playing audio first time
-   console.log("yo");
+ 
     if (this.state.soundObj === null){
-      console.log("yo2");
+     
     const playbackObj = new Audio.Sound();
     const status = await playbackObj.loadAsync(
       {uri : track},
       {shouldPlay : true},
      
     );
-    
-    
-    
-    return this.setState({
+    this.setState({
       ...this.state,
+      currentAudio : track,
       playbackObj:playbackObj,
-      soundObj:status});
+      soundObj:status,
+    isPlaying : true
+  });
+   return playbackObj.setOnPlaybackStatusUpdate(this.OnPlaybackStatusUpdate)
     }
 
     //pause audio
-   // console.log(this.state.soundObj.isLoaded);
-    //console.log(this.state.soundObj.isPlaying);
+
     if (this.state.soundObj.isLoaded && this.state.soundObj.isPlaying)
     {
       console.log(track);
@@ -134,6 +184,8 @@ render(){
           ...this.state,
           soundObj:status});
       }
+
+    
     }
   };
 
