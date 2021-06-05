@@ -169,14 +169,14 @@ export default function App() {
   return (
    
        // <Player/>
-        //<Songlist/>
+        <Songlist/>
         
-    <PaperProvider theme={theme}>
-    <AuthContext.Provider value={authContext}>
-      <NavigationContainer theme={theme}>
-        {loginState.userToken != null ? <DrawerNavigator /> : <AuthStack />}
-      </NavigationContainer>
-    </AuthContext.Provider>
-    </PaperProvider>
+    // <PaperProvider theme={theme}>
+    // <AuthContext.Provider value={authContext}>
+    //   <NavigationContainer theme={theme}>
+    //     {loginState.userToken != null ? <DrawerNavigator /> : <AuthStack />}
+    //   </NavigationContainer>
+    // </AuthContext.Provider>
+    // </PaperProvider>
   );
 }
