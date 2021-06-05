@@ -6,6 +6,7 @@ import Home from '../screens/home';
 import Profile from "../screens/profile";
 import Search from "../screens/search";
 import Playlist from "../screens/playlist";
+import Player from "../screens/Player";
 
 const HomeStack = createStackNavigator();
 const SearchStack = createStackNavigator();
@@ -42,6 +43,11 @@ export function HomeStackScreen({navigation}) {
             ></Icon.Button>
           ),
         }}
+      />
+      <HomeStack.Screen
+        name="Player"
+        component={Player}
+        headerMode="none"
       />
     </HomeStack.Navigator>
   );

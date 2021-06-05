@@ -8,7 +8,7 @@ import {
   StyleSheet,
   SliderBase
 } from 'react-native';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native';
 import simage from '../assets/song1.png';
 import homebg from '../assets/homebackground.png';
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -17,25 +17,31 @@ import Slider from '@react-native-community/slider';
 import { Audio } from 'expo-av';
 import { render } from 'react-dom';
 import { getNativeSourceAndFullInitialStatusForLoadAsync } from 'expo-av/build/AV';
-import track from '../assets/tracks/dl.mp3'
+// import track from '../assets/tracks/dl.mp3'
 import { color } from 'react-native-reanimated';
+import { useRoute } from '@react-navigation/native';
 
-const tracks = [
-  {
-    id : 1,
-    uri : require('../assets/tracks/dl.mp3')
-  }
+// const tracks = [
+//   {
+//     id : 1,
+//     uri : require('../assets/tracks/DriversLicense/dl.mp3')
+//   }
 
-];
-
+// ];
+// const route = useRoute();
 export default class Player extends Component {
-
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
+    // console.log(this.props.route.params.album.track);
     this.state = {
+        id: this.props.route.params.album.id,
+        name: this.props.route.params.album.name,
+        imageUri: this.props.route.params.album.imageUri,
+        artist: this.props.route.params.album.artist,
+        track: this.props.route.params.album.track,
       playbackObj : null,
-      soundObj : null,
-      iconNameplay : 'pause-outline',
+      soundObj: null,
+      iconNameplay : 'play-sharp',
       iconNamefav : 'ios-heart-outline',
       playbackPosition : null,
       playbackDuration : null,
@@ -43,31 +49,32 @@ export default class Player extends Component {
       
     };
     
-  }
+    
+  } 
 
-  
 
-render(){
-  
+render(){ 
+  const track = this.state.track; 
+  // const navigation  = this.props;
   return (
     <ImageBackground source={homebg} style={styles.backgroundContainer}>
       <SafeAreaView>
-        <TouchableOpacity style={styles.icon}>
+        {/* <TouchableOpacity style={styles.icon}>
           <Icon name="arrow-back-ios" size={28} color="#ffffff" />
-        </TouchableOpacity>
-        <Image source={simage} style={styles.image} />
+        </TouchableOpacity> */}
+        <Image source={this.state.imageUri} style={styles.image} />
         <View style={styles.view}>
           <TouchableOpacity>
             <Icon size={30} style={styles.heart} color="#ffffff" name="add" />
           </TouchableOpacity>
-          <Text style={styles.title} >Drivers License</Text>
+          <Text style={styles.title} >{this.state.name}</Text>
           <TouchableOpacity>
             <Icon2 size={25} style={styles.heart} color="#ffffff" name={this.state.iconNamefav} onPress = {() => {
               this.state.iconNamefav === 'ios-heart-outline' ? this.setState({iconNamefav : 'heart'}) :  this.setState({iconNamefav : 'ios-heart-outline'})
             }} />
           </TouchableOpacity>
         </View>
-        <Text style={styles.artist} >Olivia Rodrigo</Text>
+        <Text style={styles.artist} >{this.state.artist}</Text>
 
         <Slider 
           style={{width: 330, height: 40, marginLeft: 22, marginTop : 25}}
@@ -142,37 +149,40 @@ miltotime = (s) => {
     }
   }
 
-  handleAudioPress = async (track) => {
+    handleAudioPress = async (track) => {
   
-    this.state.iconNameplay === 'pause-outline' ? this.setState({iconNameplay : 'play-sharp'}) :  this.setState({iconNameplay : 'pause-outline'})
+    // this.state.iconNameplay === 'pause-outline' ? this.setState({iconNameplay : 'play-sharp'}) :  this.setState({iconNameplay : 'pause-outline'})
   // playing audio first time
  
     if (this.state.soundObj === null){
-     
-    const playbackObj = new Audio.Sound();
-    const status = await playbackObj.loadAsync(
-      {uri : track},
-      {shouldPlay : true},
-     
-    );
-    this.setState({
-      ...this.state,
-      currentAudio : track,
-      playbackObj:playbackObj,
-      soundObj:status,
-    isPlaying : true
-  });
-   return playbackObj.setOnPlaybackStatusUpdate(this.OnPlaybackStatusUpdate)
+      await Audio.setIsEnabledAsync(true)
+      const playbackObj = new Audio.Sound();
+      const status = await playbackObj.loadAsync(
+        {uri : track},
+        {shouldPlay : true},
+      );
+      // await playbackObj.setIsLoopingAsync(true)
+      await playbackObj.playAsync();
+      this.setState({
+        ...this.state,
+        currentAudio : track,
+        playbackObj:playbackObj,
+        soundObj:status,
+      isPlaying : true, 
+      iconNameplay : 'pause-outline'
+    });
+     return playbackObj.setOnPlaybackStatusUpdate(this.OnPlaybackStatusUpdate)
     }
 
     //pause audio
 
     if (this.state.soundObj.isLoaded && this.state.soundObj.isPlaying)
     {
-      console.log(track);
+      // console.log(track);
       const status = await this.state.playbackObj.setStatusAsync({shouldPlay : false});
        return this.setState({
         ...this.state,
+        iconNameplay : 'play-sharp',
         soundObj:status});
       }
 
@@ -182,6 +192,7 @@ miltotime = (s) => {
         const status = await this.state.playbackObj.playAsync();
         return this.setState({
           ...this.state,
+          iconNameplay : 'pause-outline',
           soundObj:status});
       }
 
