@@ -1,259 +1,169 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { Component, useState, useEffect } from 'react';
+import React,{Component} from 'react'
 
-//import styles from './style'
 import {
-    View,
     Text,
-    ImageBackground,
-    Image,
-    SafeAreaView,
-    Easing,
-    TouchableOpacity,
-    StyleSheet,
+    View, 
+    ImageBackground, 
+    Image, 
+    SafeAreaView, 
+    Easing, 
+    TouchableOpacity, 
+    StyleSheet, 
     Dimensions,
-    FlatList,
-    Modal,
-    ScrollView,
-    //SafeAreaView
+    FlatList
 } from 'react-native';
-import { Searchbar } from 'react-native-paper';
+import _ from "lodash"
 import Icon from 'react-native-vector-icons/Ionicons'
-//import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-//import { SearchBar } from 'react-native-elements';
-const { width, height } = Dimensions.get('screen');
-import _ from "lodash";
+import { TextInput } from 'react-native-gesture-handler';
+import { Searchbar } from 'react-native-paper';
+import bgimage from '../assets/homebackground.png'
+const {width,height} = Dimensions.get('screen');
 
-import homebg from '../assets/homebackground.png'
-
-
-export default class songlist extends Component {
-
-    // initial state
-    state = {
-        isVisible: false
-    };
-
-    // hide show modal
-    displayModal(show) {
-        this.setState({ isVisible: show })
-    }
-
-    constructor(props) {
+export default class AllSongs extends Component {
+    constructor(props,navigation){
         super(props)
-        this.state = {
-            isLoading: true,
-            data: [],
-            count: 0,
-            iconName: "bookmark",
-            iconNamefav: 'ios-heart-outline',
-            fullData: [],
-            search: ""
+        this.state ={
+            isLoading : true,
+            data : [],
+            fullData : [],
+            search : ""
         }
-
     }
 
-    componentDidMount() {
-        fetch('https://private-anon-abf096c20c-aabf.apiary-mock.com/books', {
-            method: 'POST',
-            body: JSON.stringify("abcd")
+    componentDidMount(){
+        fetch('https://private-anon-5ac48ae358-aabf.apiary-mock.com/events',{
+            method : 'POST',
+            body : JSON.stringify("collection")
         })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({
-                    isLoading: false,
-                    data: responseJson.body,
-                    fullData: responseJson.body,
-                })
+        .then((response)=>response.json())
+        .then((responseJson)=>{
+            this.setState({
+                isLoading:false,
+                data : responseJson.body.items,
+                fullData : responseJson.body.items,
             })
-        this.displayModal(false)
-        console.log(this.state.data)
-    }
-
-    onCloseModal = () => {
-        this.setState({ item: "" })
-    }
-    handleSearch = (text) => {
-        const formattedQuery = this.state.search
-        const data = _.filter(this.state.fullData, items => {
-            if (items.title.includes(formattedQuery)) {
-                return true
-            }
-            else {
-                return false
-            }
+            console.log(this.state.data)
         })
-        this.setState({ data, search: text })
     }
-    bringDataToList = ({ item, index }) => {
-        this.state.count = 0
 
-        return (
-            <ImageBackground source={homebg} style={styles.backgroundContainer}>
-                <SafeAreaView>
-                    <ScrollView>
-                        <View>
-                            <TouchableOpacity style={styles.btn}
-                            // onPress={() => {
-                            // this.displayModal(true);
-                            >
-                                <Text style={styles.text}>{item.title}</Text>
-                                <FlatList
-                                    data={item.authors}
-                                    renderItem={this.bringAuthorToList}
-                                    keyExtractor={(item, index) => index.toString()}
-                                    horizontal
-                                />
-                            </TouchableOpacity>
-
-                            {/* <TouchableOpacity style={styles.bookmark}>
-
-                                <Icon size={25}
-                                    //style={styles.heart}
-                                    color="#ffffff"
-                                    name={this.state.iconNamefav}
-                                    onPress={() => {
-                                        console.log("hello");
-                                        this.state.iconNamefav === 'ios-heart-outline' ?
-                                            this.setState({ iconNamefav: 'heart' }) : this.setState({ iconNamefav: 'ios-heart-outline' })
-                                        console.log(this.state.iconNamefav);
-                                    }} />
-                            </TouchableOpacity> */}
-                        </View>
-                    </ScrollView>
-                </SafeAreaView>
-            </ImageBackground >
-
+    bringDataToList = ({item,index})=>{
+        //console.log(item.image)
+        
+        return(
+            
+            
+               
+            <TouchableOpacity style={style.item1} onPress = {()=> this.props.navigation.navigate("Player")}>
+                
+                <Image  
+                    source={ { uri:item.image, } }
+                    style={ style.tinyLogo}
+                />
+                <View style = {{justifyContent : 'center'}}>
+                <Text style = {style.heading} >{item.title}</Text>
+                <Text style = {style.category}>{item.categories[0].title}</Text>
+                
+                </View>
+            </TouchableOpacity>
+            
         )
     }
 
-    bringAuthorToList = ({ item, index }) => {
-        if (this.state.count === 0) {
-            this.state.count = 1
-            return (
-                <View>
-                    <Text style={styles.author}>By {item.title}</Text>
-                </View>
-            )
-        }
-        else {
-            return (
-                <View>
-                    <Text style={styles.author} >,{item.title}</Text>
-                </View>
-            )
-        }
+    handleSearch=(text)=>{
+        const formattedQuery = this.state.search
+        const data = _.filter(this.state.fullData, items=>{
+            if(items.title.includes(formattedQuery)){
+                return true
+            }
+            else{
+                return false
+            }
+        })
+        this.setState({data, search:text})
     }
 
-    render() {
-        let { data, isLoading } = this.state
-        return (
-            <View >
+    render(){
+        let {data,isLoading}=this.state
+        return( 
+            <ImageBackground source = {bgimage}>
+            <View style={style.container}>
+                
                 <Searchbar
-                    placeholder="Type"
-                    onChangeText={(text) => {
-                        this.state.search = text
+                    styles = {style.sinput}
+                    placeholder="Search..."
+                    onChangeText={(string)=>{
+                        this.state.search=string
                         console.log(this.state.search)
                         this.handleSearch(this.state.search)
                     }}
                 ></Searchbar>
-                <FlatList
+
+                <FlatList 
                     data={data}
                     renderItem={this.bringDataToList}
-                    keyExtractor={(item, index) => index.toString()}>
-
-                    <TouchableOpacity style={styles.bookmark}>
-
-                                <Icon size={25}
-                                    //style={styles.heart}
-                                    color="#ffffff"
-                                    name={this.state.iconNamefav}
-                                    onPress={() => {
-                                        console.log("hello");
-                                        this.state.iconNamefav === 'ios-heart-outline' ?
-                                            this.setState({ iconNamefav: 'heart' }) : this.setState({ iconNamefav: 'ios-heart-outline' })
-                                        console.log(this.state.iconNamefav);
-                                    }} />
-                            </TouchableOpacity>
-                </FlatList>
+                    keyExtractor={(item,index) => index.toString()}
+                />
             </View>
+            </ImageBackground>
         )
     }
 }
+const {width : WIDTH} = Dimensions.get('window');
+const style = StyleSheet.create({
 
-const styles = StyleSheet.create({
+   
+  
+    container:{
+        flex : 1,
+        
+    },
+    time : {
+        color : '#d3d3d3',
+        marginLeft : 10,
+        marginTop : 5
+  
+      },
+      sinput : {
+        marginLeft: 15,
+        width : WIDTH - 27,
+      },
+      searchHeader : {
+        flexDirection : 'row',
+        justifyContent : 'space-between',
+        marginBottom : 10
+      },
+      searchBtn : {
+        // width : 20,
+        // height : 20,
+        //borderRadius : 50,
+        //backgroundColor : '#ffffff',
+        //color : '#ffffff',
+        marginRight : 15
+      },
+  
+      heading : {
+        fontSize : 18,
+        fontWeight : '200',
+        marginLeft : 10,
+        color : "#ffffff"
+      },
+  
+      category : {
+          fontSize : 12,
+        marginLeft :10,
+        fontWeight : '100',
+        color : "#ffffff"
+      },
+      tinyLogo : {
+        
+        padding : 5,
+        borderRadius : 12,
+        height : 100,
+        width : 100,
+        alignSelf : 'flex-start'
+      },
+      item1 : {
 
-    backgroundContainer: {
-        flex: 1,
-        width: null,
-        height: null,
-        //justifyContent: 'center',
-        //alignItems: 'center'
-    },
-
-    text: {
-        marginTop: 10,
-        fontSize: 18,
-        fontWeight: 'bold',
-        width: width - 90,
-        color: 'white',
-        //fontFamily: "Montserrat"
-    },
-
-    btn: {
-        borderBottomColor: '#d3d3d3',
-        borderBottomWidth: 1,
-        //backgroundColor: '#e0e0e0'
-    },
-
-    bookmark: {
-        position: 'relative',
-        alignItems: 'flex-end',
-        color: 'white',
-    },
-
-    container: {
-        //marginTop: 50,
-        flexDirection: "row",
-        alignItems: "center",
-        marginHorizontal: 20,
-        justifyContent: "space-between",
-    },
-
-    author: {
-        marginBottom: 10,
-        marginTop: 10,
-        color: 'white',
-    },
-
-    details: {
-        marginBottom: 10,
-        marginTop: 10,
-        color: '#545454',
-    },
-
-    price: {
-        marginBottom: 10,
-        marginTop: 40,
-        color: '#545454',
-        fontSize: 16,
-        fontWeight: 'bold'
-    },
-
-    image: {
-        marginTop: 150,
-        marginBottom: 10,
-        width: '100%',
-        height: 350,
-    },
-    popup: {
-        color: '#000000',
-        fontSize: 22,
-    },
-    closeText: {
-        marginTop: 200,
-        fontSize: 24,
-        color: '#00479e',
-        textAlign: 'center',
-    }
-});
+        flexDirection : 'row'
+      }
+  });
