@@ -3,6 +3,7 @@ import React, { Component, useState} from 'react';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {AuthContext} from '../components/context';
 
 import {
     ImageBackground,
@@ -48,7 +49,7 @@ const Profile = ({ navigation }) => {
     const setStatusFilter = status => {
         setStatus(status)
     }
-
+    const { signOut, toggleTheme } = React.useContext(AuthContext);
     return (
         <ImageBackground source={homebg} style={styles.backgroundContainer}>
             <SafeAreaView>
@@ -68,7 +69,7 @@ const Profile = ({ navigation }) => {
                             <Text style={styles.btnText}>Edit Profile</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.editBtn}>
-                            <Text style={styles.btnText}>Logout</Text>
+                            <Text style={styles.btnText} onClick={() => {signOut()}}>Logout</Text>
                         </TouchableOpacity>
                     </View>
 

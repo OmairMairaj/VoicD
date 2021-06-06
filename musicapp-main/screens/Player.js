@@ -53,7 +53,9 @@ export default class Player extends Component {
 render(){ 
   const track = this.state.track; 
   const goback = () => {
+    this.handleAudioPress(track);
     this.props.navigation.goBack();
+    
     // await playbackObj.pauseAsync();
   }
   // const navigation  = this.props;
@@ -151,8 +153,6 @@ miltotime = (s) => {
   }
 
     handleAudioPress = async (track) => {
-  
-    // this.state.iconNameplay === 'pause-outline' ? this.setState({iconNameplay : 'play-sharp'}) :  this.setState({iconNameplay : 'pause-outline'})
   // playing audio first time
  
     if (this.state.soundObj === null){
@@ -197,14 +197,7 @@ miltotime = (s) => {
           soundObj:status});
       }
 
-      //play another audio
-      if (this.state.soundObj=== null && this.state.currentAudio.id !== Audio.id)
-      {
-        await this.state.playbackObj.stopAsync()
-        await this.state.playbackObj.unloadAsync();
-        await Audio.setIsEnabledAsync(true)
-        
-      }
+    
 
     
     }
