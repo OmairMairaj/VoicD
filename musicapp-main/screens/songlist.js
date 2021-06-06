@@ -43,11 +43,12 @@ export default class AllSongs extends Component {
           fullData: responseJson.body.items,
         });
         console.log(this.state.data);
+        console.log(this.state.fullData);
       });
   }
 
   bringDataToList = ({ item, index }) => {
-    //console.log(item.image)
+    console.log(item.title)
 
     return (
       <TouchableOpacity
@@ -87,7 +88,7 @@ export default class AllSongs extends Component {
                 placeholder="Search..."
                 onChangeText={(string) => {
                   this.state.search = string;
-                  console.log(this.state.search);
+                  // console.log(this.state.search);
                   this.handleSearch(this.state.search);
                 }}
               ></Searchbar>
@@ -95,6 +96,7 @@ export default class AllSongs extends Component {
               <FlatList
                 style = {{marginTop : 10}}
                 data={data}
+                {...console.log(data)}
                 renderItem={this.bringDataToList}
                 keyExtractor={(item, index) => index.toString()}
               />

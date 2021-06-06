@@ -47,7 +47,7 @@ export function HomeStackScreen({navigation}) {
       <HomeStack.Screen
         name="Player"
         component={Player}
-        headerMode="none"
+        options={{headerShown: false}}
       />
     </HomeStack.Navigator>
   );
@@ -82,6 +82,11 @@ export function SearchStackScreen({navigation}) {
             ></Icon.Button>
           ),
         }}
+      />
+      <SearchStack.Screen
+        name="Player"
+        component={Player}
+        options={{headerShown: false}}
       />
     </SearchStack.Navigator>
   );

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -17,41 +17,82 @@ import {
   TouchableOpacity,
   NavigationContainer,
   FlatList,
+  SafeAreaView,
+  ScrollView,
 } from "react-native";
 import bgImage from "../assets/homebackground.png";
 import logo from "../assets/vd-logowhite.png";
 import Icon from "react-native-vector-icons/Ionicons";
-import Home from "../screens/home";
+import Player from "../screens/Player";
 import homebg from "../assets/homebackground.png";
 import { Searchbar } from "react-native-paper";
+import albumCategories from "../data/albumCategories";
+import albums from "../data/albums";
+import { useNavigation } from "@react-navigation/native";
+import SearchAlbum from "../components/SearchAlbum";
+
 
 const numColumns = 2;
 const WIDTH = Dimensions.get("window").width;
 
 export default class Search extends Component {
-  constructor(props, navigation) {
-    super(props);
+  constructor(props,navigation) {
+    super();
     this.state = {
       isLoading: true,
       press: false,
-      fulldata: [],
+      fullData: [],
+      data: [],
       search: "",
     };
+    this.state.fullData =  albums.map((e)=> {return (e)});
+    this.state.data =  albums.map((e)=> {return (e)});
+    // console.log(this.props);
   }
-  updateSearch = (search) => {
-    this.setState({ search });
+  // componentDidMount() {
+    
+  //   console.log(this.state.fullData);
+  //   console.log(this.state.data);
+  // }
+  handleSearch = (text) => {
+    const formattedQuery = this.state.search;
+    const data = _.filter(this.state.fullData, (items) => {
+      if (items.name.includes(formattedQuery)) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    this.setState({ data, search: text });
   };
   render() {
-    const { search } = this.state;
+    const { data, isLoading } = this.state;
     return (
       <ImageBackground source={homebg} style={styles.backgroundContainer}>
-        <View>
-          <Searchbar style={styles.search}
-            placeholder="Type Here..."
-            onChangeText={this.updateSearch}
-            value={search}
-          />
-        </View>
+        <SafeAreaView>
+          <ScrollView>
+            <View>
+              <Searchbar
+                style={styles.search}
+                placeholder="Type Here..."
+                onChangeText={(string) => {
+                  this.state.search = string;
+                  // console.log(this.state.search);
+                  this.handleSearch(this.state.search);
+                }}
+              />
+              </View>
+              <View>
+              <FlatList
+                style={{ marginTop: 10 }}
+                data={data}
+                // {...console.log(data)}
+                renderItem={(items) => <SearchAlbum album={items.item}/>}
+                keyExtractor={(items) => items.id}
+              />
+            </View>
+          </ScrollView>
+        </SafeAreaView>
       </ImageBackground>
     );
   }
@@ -66,38 +107,40 @@ const styles = StyleSheet.create({
     //alignItems: 'center'
   },
   search: {
-    position: "absolute",
     borderWidth: 1,
     borderRadius: 20,
     borderColor: "gray",
     margin: 10,
+    // marginRight: 20,
     height: 40,
-    width: WIDTH-10,
-    paddingLeft: 10,
-    paddingRight: 10,
+    width: null,
+    // paddingLeft: 10,
+    // paddingRight: 10,
     alignItems: "center",
     justifyContent: "center",
   },
-  itemImage: {
-    borderRadius: 25,
-    alignItems: "flex-start",
-    height: WIDTH / numColumns - 30,
-    width: WIDTH / 2 - 25,
+  heading: {
+    fontSize: 15,
+    fontWeight: "200",
+    marginLeft: 10,
+    color: "#ffffff",
   },
-  itemStyle: {
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1,
-    margin: 1,
-    height: WIDTH / numColumns,
-    width: WIDTH / 2,
+  category: {
+    fontSize: 10,
+    marginLeft: 10,
+    fontWeight: "100",
+    color: "#ffffff",
   },
-
-  itemText: {
-    textAlign: "center",
-    color: "black",
-    fontSize: 12,
-    fontFamily: "notoserif",
-    fontWeight: "bold",
+  tinyLogo: {
+    padding: 5,
+    borderRadius: 12,
+    height: 80,
+    width: 80,
+    marginLeft : 25,
+  },
+  item1: {
+    flexDirection: "row",
+    marginTop: 10,
+    marginBottom: 10
   },
 });

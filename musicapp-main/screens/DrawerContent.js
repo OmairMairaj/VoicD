@@ -19,6 +19,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import pic from '../assets/profilepic.jpeg';
 import { Ionicons } from '@expo/vector-icons'; 
 import {AuthContext} from '../components/context';
+import user from '../data/user';
 
 export default function DrawerContent(props){
 
@@ -33,12 +34,12 @@ export default function DrawerContent(props){
                     <View style={styles.userInfoSection}>
                         <View style={{flexDirection:'row', marginTop: 15}}>
                             <Avatar.Image
-                                source={pic}
+                                source={user.pic}
                                 size={80}
                             />
                             <View style={{marginLeft:15, flexDirection:'column'}}>
-                                <Title style={styles.title}>Maryam Altaf</Title>
-                                <Caption style={styles.caption}>@emmvi</Caption>
+                                <Title style={styles.title}>{user.firstName+" "}{user.LastName}</Title>
+                                <Caption style={styles.caption}>{'@'+user.username}</Caption>
                             </View>
                         </View>
 
