@@ -33,6 +33,8 @@ import { ActivityIndicator } from "react-native";
 import { AuthContext } from "./components/context";
 import { Provider as PaperProvider, DarkTheme as PaperDarkTheme, DefaultTheme as PaperDefaultTheme} from 'react-native-paper';
 import Songlist from "./screens/songlist";
+import Search from "./screens/search";
+import User from "./data/user";
 
 // const Drawer = createDrawerNavigator();
 
@@ -113,7 +115,8 @@ export default function App() {
       // setIsLoading(false);
       let userToken;
       userToken=null;
-      if( userName == 'omairmairaj@gmail.com' && password == '123456'){
+      
+      if( userName == User.username && password == User.password){
         try{
           userToken = 'asdfghkl';
           await AsyncStorage.setItem('userToken', userToken)
@@ -169,8 +172,8 @@ export default function App() {
   return (
    
        // <Player/>
-       // <Songlist/>
-        
+      //  <Songlist/>
+      // <Search/>
     <PaperProvider theme={theme}>
     <AuthContext.Provider value={authContext}>
       <NavigationContainer theme={theme}>

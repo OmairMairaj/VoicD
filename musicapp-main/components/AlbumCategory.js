@@ -6,7 +6,7 @@ export const AlbumCategoryProps = {
     title: String,
     albums: [Album],
 }
-
+ 
 const AlbumCategory = (AlbumCategoryProps) => {
     return(
         <View>

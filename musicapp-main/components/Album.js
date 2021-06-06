@@ -13,13 +13,13 @@ export const AlbumProps = {
     genre: String,
     artist: String,
   },
-};
+}; 
 
 const Album = (AlbumProps) => {
     const navigation = useNavigation();
   const onPress = () => {
-      console.log(AlbumProps.album),
-      console.log(`Album pressed: ${AlbumProps.album.name}`),
+      // console.log(AlbumProps.album),
+      // console.log(`Album pressed: ${AlbumProps.album.name}`),
       navigation.navigate('Player',{'album': AlbumProps.album})
   };
   return (

@@ -47,10 +47,11 @@ function Home({ navigation }) {
     <ImageBackground source={homebg} style={styles.backgroundContainer}>
       <SafeAreaView>
         <ScrollView>
-        {console.log(albumCategories)}
+        {/* {console.log(albumCategories)} */}
           <FlatList 
             data={albumCategories}
             renderItem={({item}) => (
+              // console.log(item)
                 <AlbumCategory
                     title={item.title}
                     albums={item.albums}

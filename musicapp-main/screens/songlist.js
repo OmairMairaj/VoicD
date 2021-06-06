@@ -35,7 +35,6 @@ export default class AllSongs extends Component {
   }
 
 
-
   bringDataToList = ({ item, index, navigation }) => {
    
     
@@ -79,7 +78,7 @@ export default class AllSongs extends Component {
                 placeholder="Search..."
                 onChangeText={(string) => {
                   this.state.search = string;
-                  console.log(this.state.search);
+                  // console.log(this.state.search);
                   this.handleSearch(this.state.search);
                 }}
               ></Searchbar>

@@ -30,7 +30,7 @@ import { useRoute } from '@react-navigation/native';
 // ];
 // const route = useRoute();
 export default class Player extends Component {
-  constructor(props){
+  constructor(props,navigation){
     super(props);
     // console.log(this.props.route.params.album.track);
     this.state = {
@@ -49,19 +49,20 @@ export default class Player extends Component {
       
     };
     
-    
   } 
-
-
 render(){ 
   const track = this.state.track; 
+  const goback = () => {
+    this.props.navigation.goBack();
+    // await playbackObj.pauseAsync();
+  }
   // const navigation  = this.props;
   return (
     <ImageBackground source={homebg} style={styles.backgroundContainer}>
       <SafeAreaView>
-        {/* <TouchableOpacity style={styles.icon}>
-          <Icon name="arrow-back-ios" size={28} color="#ffffff" onPress = {() => navigation.goBack()} />
-        </TouchableOpacity> */}
+        <TouchableOpacity style={styles.icon} onPress={goback}>
+          <Icon name="arrow-back-ios" size={28} color="#ffffff" />
+        </TouchableOpacity>
         <Image source={this.state.imageUri} style={styles.image} />
         <View style={styles.view}>
           <TouchableOpacity>

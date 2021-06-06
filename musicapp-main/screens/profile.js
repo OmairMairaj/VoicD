@@ -26,6 +26,7 @@ import homebg from '../assets/homebackground.png'
 
 import Home from '../screens/home';
 import { ScrollView } from 'react-native-gesture-handler';
+import user from '../data/user';
 
 //const { width: WIDTH } = Dimensions.get('window')
 const { width, height } = Dimensions.get('screen');
@@ -54,11 +55,11 @@ const Profile = ({ navigation }) => {
                 <ScrollView>
                     <View>
                         <View style={styles.profileImage}>
-                            <Image source={pic} style={styles.image} resizeMode="center" />
+                            <Image source={user.pic} style={styles.image} resizeMode="center" />
                         </View>
                         <View style={styles.nameInfo}>
-                            <Text style={styles.name}>Maryam Altaf</Text>
-                            <Text style={styles.username}>emmvi</Text>
+                            <Text style={styles.name}>{user.firstName+" "+user.LastName}</Text>
+                            <Text style={styles.username}>{'@'+user.username}</Text>
                         </View>
                     </View>
 

@@ -14,6 +14,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 import pic from '../assets/profilepic.jpeg';
+import user from '../data/user';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -34,10 +35,10 @@ const Settings = ({ navigation }) => {
 
                     <TouchableOpacity style={styles.profileBtn} onPress = {() => {navigation.navigate("Profile")}}>
                         <View style={styles.profileImage}>
-                            <Image source={pic} style={styles.image} resizeMode="center" />
+                            <Image source={user.pic} style={styles.image} resizeMode="center" />
                         </View>
                         <View style={styles.nameInfo}>
-                            <Text style={styles.name}>Maryam Altaf</Text>
+                            <Text style={styles.name}>{user.firstName+" "+user.LastName}</Text>
                             <Text style={styles.username}>View Profile</Text>
                         </View>
                         <View style={styles.righticon}>
