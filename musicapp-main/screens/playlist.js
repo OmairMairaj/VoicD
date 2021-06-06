@@ -64,7 +64,7 @@ function Playlist({ navigation }) {
                             </View>
                         </TouchableOpacity>
  
-                        <TouchableOpacity style={styles.playlist}>
+                        <TouchableOpacity style={styles.playlist} onPress = {() => navigation.navigate("Songlist")}>
                             <View style={styles.songpic} >
                                 <MaterialCommunityIcons name="cards-heart" size={60} color="white" overflow="hidden" />
                             </View>

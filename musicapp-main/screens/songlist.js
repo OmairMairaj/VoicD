@@ -18,46 +18,37 @@ import { ScrollView, TextInput } from "react-native-gesture-handler";
 import { Searchbar } from "react-native-paper";
 import bgimage from "../assets/homebackground.png";
 const { width, height } = Dimensions.get("screen");
+import albumCategories from "../data/albumCategories";
+import { useNavigation } from "@react-navigation/native";
+import {AlbumProps} from "../components/Album"
+
 
 export default class AllSongs extends Component {
   constructor(props, navigation) {
     super(props);
     this.state = {
       isLoading: true,
-      data: [],
+      item : {},
       fullData: [],
       search: "",
     };
   }
 
-  componentDidMount() {
-    fetch("https://private-anon-5ac48ae358-aabf.apiary-mock.com/events", {
-      method: "POST",
-      body: JSON.stringify("collection"),
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          isLoading: false,
-          data: responseJson.body.items,
-          fullData: responseJson.body.items,
-        });
-        console.log(this.state.data);
-      });
-  }
 
-  bringDataToList = ({ item, index }) => {
-    //console.log(item.image)
 
+  bringDataToList = ({ item, index, navigation }) => {
+   
+    
+    
     return (
       <TouchableOpacity
         style={style.item1}
-        onPress={() => this.props.navigation.navigate("Player")}
+        onPress={() => this.props.navigation.navigate("Player",{'album' : item})}
       >
-        <Image source={{ uri: item.image }} style={style.tinyLogo} />
+        <Image source={{ uri: item.imageUri }} style={style.tinyLogo} />
         <View style={{ justifyContent: "center" }}>
-          <Text style={style.heading}>{item.title}</Text>
-          <Text style={style.category}>{item.categories[0].title}</Text>
+          <Text style={style.heading}>{item.name}</Text>
+          <Text style={style.category}>{item.artist}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -77,6 +68,7 @@ export default class AllSongs extends Component {
 
   render() {
     let { data, isLoading } = this.state;
+    console.log(albumCategories);
     return (
       <ImageBackground source={bgimage}>
         <SafeAreaView>
@@ -91,20 +83,22 @@ export default class AllSongs extends Component {
                   this.handleSearch(this.state.search);
                 }}
               ></Searchbar>
-
-              <FlatList
-                style = {{marginTop : 10}}
-                data={data}
-                renderItem={this.bringDataToList}
-                keyExtractor={(item, index) => index.toString()}
-              />
+             
+               <FlatList
+                 style = {{marginTop : 10}}
+                 data={albumCategories[0].albums}
+                 renderItem={this.bringDataToList}
+                 keyExtractor={(item) => item.id}
+               />
+               
+             
             </View>
           </ScrollView>
         </SafeAreaView>
       </ImageBackground>
     );
-  }
-}
+  }}
+
 const { width: WIDTH } = Dimensions.get("window");
 const style = StyleSheet.create({
   container: {
@@ -120,7 +114,7 @@ const style = StyleSheet.create({
   searchHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 10,
+    marginBottom: 30,
   },
   searchBtn: {
     // width : 20,
@@ -146,7 +140,7 @@ const style = StyleSheet.create({
   },
   tinyLogo: {
     padding: 5,
-    borderRadius: 12,
+    marginBottom : 20,
     height: 100,
     width: 80,
     marginLeft : 25,

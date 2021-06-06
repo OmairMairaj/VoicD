@@ -60,7 +60,7 @@ render(){
     <ImageBackground source={homebg} style={styles.backgroundContainer}>
       <SafeAreaView>
         {/* <TouchableOpacity style={styles.icon}>
-          <Icon name="arrow-back-ios" size={28} color="#ffffff" />
+          <Icon name="arrow-back-ios" size={28} color="#ffffff" onPress = {() => navigation.goBack()} />
         </TouchableOpacity> */}
         <Image source={this.state.imageUri} style={styles.image} />
         <View style={styles.view}>
@@ -187,13 +187,22 @@ miltotime = (s) => {
       }
 
       //resume audio
-      if (this.state.soundObj.isLoaded && !this.state.soundObj.isPlaying)
+      if (this.state.soundObj.isLoaded && !this.state.soundObj.isPlaying && this.state.currentAudio.id  === track.id )
       {
         const status = await this.state.playbackObj.playAsync();
         return this.setState({
           ...this.state,
           iconNameplay : 'pause-outline',
           soundObj:status});
+      }
+
+      //play another audio
+      if (this.state.soundObj=== null && this.state.currentAudio.id !== Audio.id)
+      {
+        await this.state.playbackObj.stopAsync()
+        await this.state.playbackObj.unloadAsync();
+        await Audio.setIsEnabledAsync(true)
+        
       }
 
     

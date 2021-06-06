@@ -2,18 +2,20 @@ import React, { Component } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Icon from "react-native-vector-icons/Ionicons";
 
-import Home from '../screens/home';
+import Home from "../screens/home";
 import Profile from "../screens/profile";
 import Search from "../screens/search";
 import Playlist from "../screens/playlist";
 import Player from "../screens/Player";
+import Songlist from "../screens/songlist";
 
 const HomeStack = createStackNavigator();
 const SearchStack = createStackNavigator();
 const PlaylistStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
+const SonglistStack = createStackNavigator();
 
-export function HomeStackScreen({navigation}) {
+export function HomeStackScreen({ navigation }) {
   return (
     <HomeStack.Navigator
       screenOptions={{
@@ -44,16 +46,12 @@ export function HomeStackScreen({navigation}) {
           ),
         }}
       />
-      <HomeStack.Screen
-        name="Player"
-        component={Player}
-        headerMode="none"
-      />
+      <HomeStack.Screen name="Player" component={Player} headerMode="none" />
     </HomeStack.Navigator>
   );
 }
 
-export function SearchStackScreen({navigation}) {
+export function SearchStackScreen({ navigation }) {
   return (
     <SearchStack.Navigator
       screenOptions={{
@@ -87,7 +85,7 @@ export function SearchStackScreen({navigation}) {
   );
 }
 
-export function PlaylistStackScreen({navigation}) {
+export function PlaylistStackScreen({ navigation }) {
   return (
     <PlaylistStack.Navigator
       screenOptions={{
@@ -117,12 +115,28 @@ export function PlaylistStackScreen({navigation}) {
           ),
         }}
       />
-      
+
+      <PlaylistStack.Screen
+        name="Songlist"
+        component={Songlist}
+        headerMode="none"
+      />
+      <PlaylistStack.Screen
+        name="Player"
+        component={Player}
+        headerMode="none"
+      />
+
     </PlaylistStack.Navigator>
+    
   );
 }
 
-export function ProfileStackScreen({navigation}) {
+
+
+
+
+export function ProfileStackScreen({ navigation }) {
   return (
     <ProfileStack.Navigator
       screenOptions={{
@@ -156,4 +170,9 @@ export function ProfileStackScreen({navigation}) {
   );
 }
 
-export default {HomeStackScreen , SearchStackScreen, PlaylistStackScreen, ProfileStackScreen };
+export default {
+  HomeStackScreen,
+  SearchStackScreen,
+  PlaylistStackScreen,
+  ProfileStackScreen,
+};
