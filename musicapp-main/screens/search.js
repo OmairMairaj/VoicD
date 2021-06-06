@@ -28,6 +28,7 @@ import homebg from "../assets/homebackground.png";
 import { Searchbar } from "react-native-paper";
 import albumCategories from "../data/albumCategories";
 import albums from "../data/albums";
+import _ from "lodash";
 import { useNavigation } from "@react-navigation/native";
 import SearchAlbum from "../components/SearchAlbum";
 

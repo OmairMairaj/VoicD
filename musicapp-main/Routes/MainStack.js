@@ -128,7 +128,6 @@ export function PlaylistStackScreen({ navigation }) {
       <PlaylistStack.Screen
         name="Songlist"
         component={Songlist}
-        options = {{headerShown : false}}
         
       />
       <PlaylistStack.Screen

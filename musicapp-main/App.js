@@ -16,6 +16,7 @@ import {
   Touchable,
   TouchableOpacity,
   Button,
+  LogBox,
 } from "react-native";
 // import loginStack from './Routes/loginStack'
 // import Signin from './screens/login';
@@ -35,6 +36,11 @@ import { Provider as PaperProvider, DarkTheme as PaperDarkTheme, DefaultTheme as
 import Songlist from "./screens/songlist";
 import Search from "./screens/search";
 import User from "./data/user";
+
+// LogBox.ignoreLogs([
+//   'Require cycle:'
+// ])
+console.disableYellowBox = true;
 
 // const Drawer = createDrawerNavigator();
 

@@ -27,7 +27,7 @@ const SearchAlbum = (SearchProps) => {
         style={styles.item1}
         onPress={onPress}
       >
-        <Image source={{ uri: SearchProps.album.imageUri }} style={styles.tinyLogo} />
+        <Image source={SearchProps.album.imageUri} style={styles.tinyLogo} />
         <View style={{ justifyContent: "center" }}>
           <Text style={styles.heading}>{SearchProps.album.name}</Text>
           <Text style={styles.category}>{SearchProps.album.artist}</Text>

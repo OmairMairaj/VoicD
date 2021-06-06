@@ -53,8 +53,12 @@ export default class Player extends Component {
 render(){ 
   const track = this.state.track; 
   const goback = () => {
-    if  (this.state.soundObj.isLoaded && this.state.soundObj.isPlaying)
-    this.handleAudioPress(track);
+    if(this.state.soundObj === null){
+      this.props.navigation.goBack();
+    }
+    else if (this.state.soundObj.isLoaded && this.state.soundObj.isPlaying){
+      this.handleAudioPress(track);
+    }
     this.props.navigation.goBack();
     
     // await playbackObj.pauseAsync();
@@ -227,7 +231,7 @@ const styles = StyleSheet.create({
   },
 
   icon: {
-    marginTop: 20,
+    marginTop: 50,
     marginLeft: 15
   },
 
