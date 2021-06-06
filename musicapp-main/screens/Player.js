@@ -53,6 +53,7 @@ export default class Player extends Component {
 render(){ 
   const track = this.state.track; 
   const goback = () => {
+    if  (this.state.soundObj.isLoaded && this.state.soundObj.isPlaying)
     this.handleAudioPress(track);
     this.props.navigation.goBack();
     
